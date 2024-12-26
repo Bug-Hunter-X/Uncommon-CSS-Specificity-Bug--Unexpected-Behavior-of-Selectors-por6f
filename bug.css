@@ -1,0 +1,29 @@
+The following CSS code snippet exhibits an uncommon error related to the specificity of CSS selectors:
+
+```css
+.container {
+  width: 100%;
+}
+
+.container div {
+  width: 50%;
+}
+
+.container .item {
+  width: 25%;
+}
+
+.container div.item {
+  width: 20%; /* This rule should override the previous two */
+}
+```
+
+The issue is that despite the `.container div.item` selector being more specific than the `.container div` and `.container .item` selectors, it is possible, depending on the browser and how the HTML is structured, that the browser might not apply the `width: 20%;` rule as expected. This could occur when the HTML structure is like this:
+
+```html
+<div class="container">
+  <div class="item"></div>
+</div>
+```
+
+In this case, the `.container div.item` selector's specificity might not always be higher than `.container div` or `.container .item`. This is due to how the browser resolves the specificity of the selectors. This could lead to unpredictable results in the rendered width.
